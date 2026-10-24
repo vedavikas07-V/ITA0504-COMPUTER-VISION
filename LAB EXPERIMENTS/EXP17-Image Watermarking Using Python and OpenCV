@@ -1,0 +1,45 @@
+import cv2
+
+img = cv2.imread("C:/Users/vedav/OneDrive/Pictures/Screenshots/Screenshot 2026-10-09 231722.png")
+
+if img is None:
+    print("Error: Image not found!")
+else:
+    # Create a copy of the original image
+    watermarked = img.copy()
+
+    # Watermark text
+    text = "COPYRIGHT"
+
+    # Set watermark properties
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    position = (30, img.shape[0] - 30)
+    font_scale = 1
+    color = (255, 255, 255)  # White
+    thickness = 2
+
+    # Create watermark overlay
+    overlay = watermarked.copy()
+
+    cv2.putText(
+        overlay, text, position, font,
+        font_scale, color, thickness,
+        cv2.LINE_AA
+    )
+
+    # Blend watermark with original image
+    watermarked = cv2.addWeighted(
+        overlay, 0.4, watermarked, 0.6, 0
+    )
+
+    # Display images
+    cv2.imshow("Original Image", img)
+    cv2.imshow("Watermarked Image", watermarked)
+
+    # Save the result
+    cv2.imwrite("watermarked_image.jpg", watermarked)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    print("Watermark inserted successfully!")
