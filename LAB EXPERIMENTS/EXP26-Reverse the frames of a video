@@ -1,0 +1,36 @@
+import cv2
+
+def reverse_video():
+    cap = cv2.VideoCapture("C:/Users/vedav/Videos/MP4.mp4")
+
+    frames = []
+
+    while True:
+        ret, frame = cap.read()
+
+        if not ret:
+            break
+
+        frames.append(frame)
+
+    cap.release()
+
+    frames.reverse()
+
+    height, width, _ = frames[0].shape
+
+    out = cv2.VideoWriter(
+        "reverse_video.mp4",
+        cv2.VideoWriter_fourcc(*'mp4v'),
+        25,
+        (width, height)
+    )
+
+    for frame in frames:
+        out.write(frame)
+
+    out.release()
+
+    print("Reverse video created successfully!")
+
+reverse_video()
