@@ -1,0 +1,17 @@
+
+import cv2
+img = cv2.imread("C:/Users/vedav/OneDrive/Pictures/foxxy.jpg")
+
+if img is None:
+    print("Image not found")
+    exit()
+roi = img[50:150, 50:150]
+copy = roi.copy()
+img[200:300, 200:300] = copy
+cv2.imshow("ROI Manipulation", img)
+cv2.imwrite("roi_result.jpg", img)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+print("ROI copied and pasted successfully")
